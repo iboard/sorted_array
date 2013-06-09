@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = SortedArray::VERSION
   spec.authors       = ["Andi Altendorfer"]
   spec.email         = ["andi@iboard.cc"]
-  spec.description   = %q{Provides class SortedArray which you can initialize with a block used to sort the Array after each push-action.}
+  spec.description   = %q{Class SortedArray keeps sorted after push-actions using a Sorter-class. Implements marshal-functions thus it can be used in PStores.}
   spec.summary       = 'SortedArray.new { |a,b| a.foo <=> b.foo }'
   spec.homepage      = "https://github.com/iboard/sorted_array"
   spec.license       = "MIT"
