@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pstore'
 
 describe SortedArray::DefaultSorter do
 
@@ -9,6 +10,7 @@ describe SortedArray::DefaultSorter do
     OpenStruct.new(foo: 2)
   ] }
   let(:sorted) { items.sort{|a,b|a.foo <=> b.foo} }
+  let(:store)  { PStore.new(SORTER_TEST_STORE) }
 
   it 'initialize with a sort-method' do
     expect(sorter.method).to eq(:foo)
@@ -20,15 +22,15 @@ describe SortedArray::DefaultSorter do
 
   it 'stores the method-name to a PStore' do
     sorter.should_receive(:marshal_dump)
-    PStore.new(SORTER_TEST_STORE).transaction do |s|
+    store.transaction do |s|
       s[:sorter] = sorter
     end
   end
 
   it 'loads the method-name from a PStore' do
-    sorter.should_receive(:marshal_load)
-    PStore.new(SORTER_TEST_STORE).transaction do |s|
-      s[:sorter]
-    end
+    _s = nil
+    store.transaction(true) { |r| _s = r[:sorter] }
+    expect(_s).to be_a SortedArray::DefaultSorter
+    expect(_s.method).to eq(:to_s)
   end
 end

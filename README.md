@@ -1,16 +1,21 @@
 # SortedArray
 
-The gem provides a class SortedArray which keeps sorted
-with a given Sorter-class after adding new items.
+The gem is providing a class `SortedArray` which keeps sorted
+after adding new items. When initializing a `SortedArray` you chose
+a Sorter which must have a method `:sort`
 
-The included DefaultSorter sorts a list of Objects by a
-given method-name.
+A class `DefaultSorter` is included.
+
+The included `DefaultSorter` sorts a list of Objects by a given method-name.
 
 ## Installation
 
+  * see [RubyGems](http://rubygems.org/gems/sorted_array)
+  * see [Github](https://github.com/iboard/sorted_array#readme)
+
 Add this line to your application's Gemfile:
 
-    gem 'sorted_array'
+    gem 'sorted_array' 
 
 And then execute:
 
@@ -22,20 +27,28 @@ Or install it yourself as:
     
 Run Tests
 
-    $ rake
+_If you clone from github you can run the following tasks:_
 
-    # using Guard
-    $ guard
-    
-    # with rspec
-    $ rspec spec/
-    
-Build Documentation
+
+    $ git clone git://github.com/iboard/sorted_array.git
+    $ cd sorted_array
+    $ bundle               # update/install the bundle
+    $ rake                 # run all tests
+    $ rspec spec/          # run all specs manually
+    $ guard                # start guard
+
+## Documentation
 
     $ yard
-    $ open doc/index.html
+    $ open doc/index.html  # on Mac OS X
 
-## Usage
+A copy of the YARDocumentation can be found at
+[iboard.cc - yardoc](http://dav.iboard.cc/container/sorted_array_doc/)
+
+And a copy of the last coverage-report is at
+[iboard.cc - coverage](http://dav.iboard.cc/container/sorted_array_coverage/)
+
+## Usage-example
 
     data = [
       OpenStruct.new( foo: 1 ),
@@ -50,11 +63,13 @@ Build Documentation
     
 ## Persistent
 
-_SortedArray_ defines a marshal_load and marshal_dump method and
-is safe to be used with PStore.
+_SortedArray_ defines a `marshal_load` and `marshal_dump` method and
+can be used in a `PStore`
 
 Example:
 
+    # assumes the previous example was executed before
+     
     store=PStore.new('example.pstore')
     store.transaction do |w|
       w[:data] = keep_sorted

@@ -42,7 +42,7 @@ module SortedArray
 
     # @param [Array] array - _classname,[..entries..]
     def marshal_load array
-      @method = array.last
+      @method = array ? array.last : :to_s
     end
 
   end

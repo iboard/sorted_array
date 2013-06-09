@@ -27,3 +27,10 @@ desc 'Build documentation'
 task :doc do
   system 'yard'
 end
+
+desc 'Deploy documentation'
+task :deploy_doc do
+    Rake::Task['doc'].execute
+    system 'rsync','-avze','ssh', '--delete', 'doc/', 'root@dav.iboard.cc:/var/www/dav/container/sorted_array_doc/'
+    system 'rsync','-avze','ssh', '--delete', 'coverage/', 'root@dav.iboard.cc:/var/www/dav/container/sorted_array_coverage/'
+end
