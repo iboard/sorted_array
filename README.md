@@ -4,9 +4,11 @@ The gem is providing a class `SortedArray` which keeps sorted
 after adding new items. When initializing a `SortedArray` you chose
 a Sorter which must have a method `:sort`
 
-A class `DefaultSorter` is included.
+Sorter-classes `DefaultSorter` and `ReverseSorter` are included.
 
 The included `DefaultSorter` sorts a list of Objects by a given method-name.
+The included `ReverseSorter` sorts a list of Objects by a given method-name and then reverses it.
+
 
 ## Installation
 
@@ -55,11 +57,14 @@ And a copy of the last coverage-report is at
       OpenStruct.new( foo: 3 ),
       OpenStruct.new( foo: 2 )
     ]
-    keep_sorted = SortedArray.new( DefaultSorter.new(:foo), data )
-    keep_sorted << OpenStruct.new( foo: 0 )
+    keep_sorted   = SortedArray.new( DefaultSorter.new(:foo), data )
+    keep_reversed = SortedArray.new( ReverseSorter.new(:foo), data )
+    keep_sorted   << OpenStruct.new( foo: 0 )
+    keep_reversed << OpenStruct.new( foo: 0 )
     
     # data.map(&:foo) => [1,3,2]
     # keep_sorted.map(&:foo) => [0,1,2,3]
+    # keep_reversed.map(&:foo) => [3,2,1,0]
     
 ## Persistent
 
